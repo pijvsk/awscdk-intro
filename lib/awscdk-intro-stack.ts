@@ -6,16 +6,16 @@ export class AwscdkIntroStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const greetingTrashcan = new aws_s3.Bucket(this, "my-social-anxiety", {
+    const friendlyBucket = new aws_s3.Bucket(this, "my-social-anxiety", {
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
     const greeterLambda = new lambda.NodejsFunction(this, "greeter-lambda", {
       environment: {
-        bucket: greetingTrashcan.bucketName,
+        bucket: friendlyBucket.bucketName,
       },
     });
 
-    greetingTrashcan.grantWrite(greeterLambda);
+    friendlyBucket.grantWrite(greeterLambda);
   }
 }
